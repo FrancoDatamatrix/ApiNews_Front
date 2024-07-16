@@ -172,7 +172,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       }
       const data = await response.json();
       setMsg(data.message);
-      console.log(data.credenciales_DB);
       setCredentials(data.credenciales_DB); // Maneja la respuesta de la API
     } catch (error) {
       setError((error as Error).message);

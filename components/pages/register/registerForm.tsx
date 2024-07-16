@@ -29,8 +29,26 @@ const RegisterForm: React.FC = () => {
     setMsg(null);
   }, []);
 
+  const clearFields = () => {
+    setEmail("")
+    setPassword("")
+    setConfirmPassword("")
+    setRole("")
+  }
+
   const handleCloseModal = () => {
     setCredentials(null);
+  };
+
+  // Expresión regular para caracteres no permitidos
+  const caracteresNoPermitidos = /[\/\\\.\*\"<>\:\|\?]/g;
+
+  const handleEmailChange = (e:string) => {
+    // Elimina caracteres no permitidos
+    const sanitizedValue = e.replace(caracteresNoPermitidos, "");
+
+    console.log(sanitizedValue);
+    setEmail(sanitizedValue);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,6 +62,7 @@ const RegisterForm: React.FC = () => {
       return;
     }
     await fetchCreateUsers(email, password, role);
+    clearFields()
   };
 
   return (
@@ -56,11 +75,8 @@ const RegisterForm: React.FC = () => {
             </h1>
           </div>
           <h2 className="text-4xl font-bold text-start mb-4 text-gray-900">
-            Registrarse
+            Registrar nuevo usuario
           </h2>
-          <p className="text-start text-gray-500 mb-6">
-            Cree una cuenta para acceder a IDINNOV
-          </p>
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && <p className="text-red-500 text-center">{error}</p>}
             {msg && <p className="text-green-500 text-center">{msg}</p>}
@@ -74,7 +90,7 @@ const RegisterForm: React.FC = () => {
               <input
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => handleEmailChange(e.target.value)}
                 required
                 className="mt-1 block w-full px-3 text-gray-500 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-yellow-600 focus:border-yellow-500"
               />
@@ -197,11 +213,7 @@ const RegisterForm: React.FC = () => {
         </div>
       </div>
       {credentials && (
-        <Alert
-          credentials={credentials}
-          msg={msg}
-          onClose={handleCloseModal}
-        />
+        <Alert credentials={credentials} msg={msg} onClose={handleCloseModal} />
       )}
       <div className="w-1/2 flex justify-start items-center bg-white">
         <div className="w-3/4 text-center">

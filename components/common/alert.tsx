@@ -1,4 +1,4 @@
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon,ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 interface modalProps {
@@ -63,14 +63,14 @@ const Alert: React.FC<modalProps> = ({ onClose, credentials, msg }) => {
                 className="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 sm:ml-3 sm:w-auto"
                 onClick={onClose}
               >
-                OK
+                Cerrar
               </button>
               <button
                 type="button"
-                className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto"
+                className="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 sm:ml-3 sm:w-auto"
                 onClick={handleCopyToClipboard}
               >
-                Copiar
+                <ClipboardDocumentListIcon className="h-6 w-6" />
               </button>
             </div>
           </div>

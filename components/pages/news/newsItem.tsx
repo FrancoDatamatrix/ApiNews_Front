@@ -10,11 +10,13 @@ interface NewsItem {
 const NewsItem: React.FC<NewsItem> = (newsprop) => {
   return (
     <div className="flex ">
-      <div>
-        <h1 className="mb-2">{newsprop.title}</h1>
+      <div className="font-sans">
+        <a href={newsprop.link} target="_blank">
+          <h1 className="mb-2 text-lg font-bold">{newsprop.title}</h1>
 
-        <p>{newsprop.snippet}</p>
-        <div>{newsprop.link}</div>
+          <p className="mt-5">{newsprop.snippet}</p>
+          {/* <div>{newsprop.link}</div> */}
+        </a>
       </div>
       <div className=" w-2/3 flex items-center justify-end">
         <img
