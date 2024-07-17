@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useCron } from "@/context/cronContext";
 import { useAuth } from "@/context/authContext";
+import SkeletonCrontabConfig from "./skeletonCrontabConfig";
 
 interface TimeSelectProps {
   label: string;
@@ -121,26 +122,34 @@ const CrontabConfig: React.FC = () => {
       ])
     );
 
-    console.log(UpdateCrontab);
-
     fetchUpdateCrontab(UpdateCrontab);
   };
 
-  if (cronLoading) return <p className="text-red-900">Loading...</p>;
+  if (cronLoading) return <SkeletonCrontabConfig/>;
   return (
     <>
       <div className="max-w-full p-8 text-black">
-        <h2 className="text-2xl font-bold mb-6">
+        <h2 className="text-2xl font-bold mb-6 font-sans">
           Su Cronjob actual se ejecuta con los siguientes parametros
         </h2>
-        <div className="flex flex-row m-4">
-          <p className="m-4">Minutos: {crontab?.minute}</p>
-          <p className="m-4">Horas: {crontab?.hour}</p>
-          <p className="m-4">Dias: {crontab?.day_of_month}</p>
-          <p className="m-4">Meses: {crontab?.month}</p>
-          <p className="m-4">Dias de la semana: {crontab?.day_of_week}</p>
+        <div className="flex flex-row m-4 text-bold mb-10">
+          <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
+            Minutos: */10{crontab?.minute}
+          </p>
+          <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
+            Horas: *{crontab?.hour}
+          </p>
+          <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
+            Dias: *{crontab?.day_of_month}
+          </p>
+          <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
+            Meses: *{crontab?.month}
+          </p>
+          <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
+            Dias de la semana: *{crontab?.day_of_week}
+          </p>
         </div>
-        <div className="flex w-2/5 rounded shadow">
+        <div className="flex w-2/5 rounded shadow ml-16">
           <div className="flex flex-col">
             <div className="bg-black w-1/6 p-8 rounded-l-lg h-full"></div>
           </div>

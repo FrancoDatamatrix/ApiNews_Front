@@ -30,10 +30,8 @@ const LoginForm: React.FC = () => {
     <div className="flex min-h-screen">
       <div className="w-1/2 flex flex-col justify-center items-center bg-white p-9">
         <div className="max-w-lg w-full bg-white mb-20">
-          <div className="text-start mb-8">
-            <h1 className="text-2xl font-bold text-gray-900">
-              Acá iría el logo
-            </h1>
+          <div className="mb-8 -ml-10">
+            <Image src="/ARCHIVOTRANSPARENTE-GRANDE.png" alt="logoIdinnov" width={300} height={100} />
           </div>
           <h2 className="text-4xl font-bold text-start mb-4 text-gray-900">
             Iniciar sesión

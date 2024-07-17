@@ -6,6 +6,7 @@ import ScheduleList from "@/components/pages/schedules/scheduleList";
 import CrontabConfig from "@/components/pages/crontab/crontabConfig";
 import NewsList from "@/components/pages/news/newsList";
 import { UserCircleIcon, ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
 
 const AdminPanel: React.FC = () => {
   const { logout, localUser } = useAuth();
@@ -34,7 +35,14 @@ const AdminPanel: React.FC = () => {
     <div className="flex min-h-screen">
       <div className="w-1/4 bg-gray-100 p-12">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold">Acá iría el logo</h1>
+          <div className="flex justify-center">
+            <Image
+              src="/ARCHIVOTRANSPARENTE.png"
+              alt="logoIdinnov"
+              width={170}
+              height={150}
+            />
+          </div>
           <div className="mt-20 flex flex-col items-center">
             <UserCircleIcon className="w-40 h-40 text-gray-300" />
             <p className="mt-2 text-black">{localUser?.usuario || "usuario"}</p>

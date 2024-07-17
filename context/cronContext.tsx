@@ -119,7 +119,8 @@ export const CronProvider: React.FC<{ children: ReactNode }> = ({
       }
 
       const data = await response.json();
-      setMsg(data.message); // Maneja la respuesta de la API
+      setMsg(data.message);
+      fetchCrontab() // Maneja la respuesta de la API
     } catch (error) {
       setError((error as Error).message);
       console.error("Error al realizar la solicitud:", error);
