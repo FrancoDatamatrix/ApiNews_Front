@@ -15,7 +15,7 @@ interface UserData {
   palabras?: string;
 }
 
-const userItem: React.FC<UserData> = ({
+const UserItem: React.FC<UserData> = ({
   id,
   usuario,
   rol,
@@ -102,4 +102,4 @@ const userItem: React.FC<UserData> = ({
   );
 };
 
-export default userItem;
+export default UserItem;

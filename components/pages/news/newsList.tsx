@@ -11,7 +11,7 @@ import Pagination from "@/components/common/pagination";
 import SkeletonNewsItem from "./skeletonNewsItem";
 import DeleteModal from "@/components/common/deleteModal";
 
-const newsList: React.FC = () => {
+const NewsList: React.FC = () => {
   const { users } = UseUser();
   const { localUser, isAuthenticated } = useAuth();
   const { news, fetchNews, fetchDeleteNews, newsloading } = UseNews();
@@ -174,7 +174,7 @@ const newsList: React.FC = () => {
             </div>
           ) : news.length > 0 ? (
             currentItems?.map((e: any) => (
-              <div className="flex" style={{ alignItems: "start" }}>
+              <div key={e._id} className="flex" style={{ alignItems: "start" }}>
                 <input
                   type="checkbox"
                   checked={selectedNews.includes(`${e.groupId}-${e._id}`)}
@@ -182,7 +182,7 @@ const newsList: React.FC = () => {
                   className="mr-3 mt-7"
                   style={{ accentColor: "black" }}
                 />
-                <div key={e._id} className="p-4 m-2 bg-gray-100 rounded w-2/3 ">
+                <div className="p-4 m-2 bg-gray-100 rounded w-2/3 ">
                   <NewsItem
                     image={
                       e.pagemap.cse_image
@@ -213,4 +213,4 @@ const newsList: React.FC = () => {
     );
 };
 
-export default newsList;
+export default NewsList;
