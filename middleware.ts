@@ -4,11 +4,11 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get("csrf_access_token")?.value;
 
-  if (currentUser && request.nextUrl.pathname === "/app/login") {
+  if (currentUser && request.nextUrl.pathname === "/login") {
     return NextResponse.redirect(new URL("/app", request.url));
   }
 
-  if (!currentUser && !request.nextUrl.pathname.startsWith("/app/login")) {
+  if (!currentUser && !request.nextUrl.pathname.startsWith("/login")) {
     return NextResponse.redirect(new URL("/app/login", request.url));
   }
 
@@ -17,5 +17,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/app/register", "/app"], // Ajusta las rutas según tu aplicación
+  matcher: ["/register", "/"], // Ajusta las rutas según tu aplicación
 };

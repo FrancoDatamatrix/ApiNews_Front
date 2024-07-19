@@ -7,6 +7,7 @@ import CrontabConfig from "@/components/pages/crontab/crontabConfig";
 import NewsList from "@/components/pages/news/newsList";
 import { UserCircleIcon, ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import Logo from "../public/ARCHIVOTRANSPARENTE.png";
 
 const AdminPanel: React.FC = () => {
   const { logout, localUser } = useAuth();
@@ -37,7 +38,7 @@ const AdminPanel: React.FC = () => {
         <div className="text-center mb-8">
           <div className="flex justify-center">
             <Image
-              src="/ARCHIVOTRANSPARENTE.png"
+              src={Logo}
               alt="logoIdinnov"
               width={160}
               height={120}

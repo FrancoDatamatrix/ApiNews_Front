@@ -6,6 +6,7 @@ import { useAuth } from "@/context/authContext";
 import { useRouter } from "next/navigation";
 import ImagePlaceholder from "@/components/common/imagePlaceHolder";
 import style from "./loginForm.module.css"
+import Logo from "../../../public/ARCHIVOTRANSPARENTE-GRANDE.png"
 
 const LoginForm: React.FC = () => {
   const { login, error, setError, isAuthenticated } = useAuth();
@@ -32,7 +33,7 @@ const LoginForm: React.FC = () => {
         <div className="max-w-lg w-full bg-white mb-20">
           <div className="mb-8 -ml-10">
             <Image
-              src="/ARCHIVOTRANSPARENTE-GRANDE.png"
+              src={Logo}
               alt="logoIdinnov"
               width={300}
               height={100}
@@ -141,7 +142,10 @@ const LoginForm: React.FC = () => {
         </div>
       </div>
       <div className="w-1/2 flex justify-start items-center bg-white">
-        <div className="w-2/3 h-4/5 flex items-center justify-center text-center rounded-lg" style={{backgroundColor:"#263238"}}>
+        <div
+          className="w-2/3 h-4/5 flex items-center justify-center text-center rounded-lg"
+          style={{ backgroundColor: "#263238" }}
+        >
           <svg
             width="587"
             height="587"

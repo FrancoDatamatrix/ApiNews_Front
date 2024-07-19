@@ -6,6 +6,7 @@ import { UseUser } from "@/context/usersContext";
 import { useRouter } from "next/navigation";
 import style from "@/components/pages/login/loginForm.module.css";
 import Alert from "@/components/common/alert";
+import Logo from "../../../public/ARCHIVOTRANSPARENTE-GRANDE.png";
 
 const RegisterForm: React.FC = () => {
   const {
@@ -71,7 +72,7 @@ const RegisterForm: React.FC = () => {
         <div className="max-w-lg w-full bg-white mb-20">
           <div className="mb-8 -ml-10">
             <Image
-              src="/ARCHIVOTRANSPARENTE-GRANDE.png"
+              src={Logo}
               alt="logoIdinnov"
               width={300}
               height={100}
