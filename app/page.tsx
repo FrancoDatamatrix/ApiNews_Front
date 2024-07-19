@@ -39,8 +39,9 @@ const AdminPanel: React.FC = () => {
             <Image
               src="/ARCHIVOTRANSPARENTE.png"
               alt="logoIdinnov"
-              width={170}
-              height={150}
+              width={160}
+              height={120}
+              priority
             />
           </div>
           <div className="mt-20 flex flex-col items-center">

@@ -29,8 +29,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [localUser, setLocalUser] = useState<any>("");
-  const server = "http://localhost:5000/api/v1";
   const router = useRouter();
+  const server = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const csrfToken = Cookies.get("csrf_access_token");

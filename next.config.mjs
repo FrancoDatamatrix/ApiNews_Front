@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: ["static.vecteezy.com"],
-  },
+  basePath: "/app",
 };
 
 export default nextConfig;

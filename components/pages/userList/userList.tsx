@@ -64,7 +64,7 @@ const UserList: React.FC = () => {
         ) : null}
 
         {users?.map((u) => (
-          <>
+          <div key={u._id.$oid}>
             <UserItem
               id={u._id.$oid}
               usuario={u.usuario}
@@ -72,7 +72,7 @@ const UserList: React.FC = () => {
               palabras={u.palabras}
               lugar={u.lugar}
             />
-          </>
+          </div>
         ))}
       </div>
     </div>

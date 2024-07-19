@@ -134,19 +134,19 @@ const CrontabConfig: React.FC = () => {
         </h2>
         <div className="flex flex-row m-4 text-bold mb-10">
           <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
-            Minutos: */10{crontab?.minute}
+            Minutos: {crontab?.minute}
           </p>
           <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
-            Horas: *{crontab?.hour}
+            Horas: {crontab?.hour}
           </p>
           <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
-            Dias: *{crontab?.day_of_month}
+            Dias: {crontab?.day_of_month}
           </p>
           <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
-            Meses: *{crontab?.month}
+            Meses: {crontab?.month}
           </p>
           <p className="m-4 bg-yellow-400 py-1 px-2 rounded">
-            Dias de la semana: *{crontab?.day_of_week}
+            Dias de la semana: {crontab?.day_of_week}
           </p>
         </div>
         <div className="flex w-2/5 rounded shadow ml-16">

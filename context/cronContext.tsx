@@ -44,7 +44,7 @@ export const CronProvider: React.FC<{ children: ReactNode }> = ({
   const [error, setError] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
   const { logout } = useAuth();
-  const server = "http://localhost:5000/api/v1/cronjob";
+  const server = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export const CronProvider: React.FC<{ children: ReactNode }> = ({
         },
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/cronjob", options); // URL de la API protegida
       if (!response.ok && response.status === 401) {
         logout();
         router.push("/login");
@@ -112,7 +112,7 @@ export const CronProvider: React.FC<{ children: ReactNode }> = ({
         body: JSON.stringify(crondata),
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/cronjob", options); // URL de la API protegida
 
       if (!response.ok) {
         throw new Error("Error al realizar la solicitud");

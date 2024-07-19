@@ -61,7 +61,7 @@ export const ScheduleProvider = ({ children }: ScheduleProviderProps) => {
   const [scheduleloading, setScheduleLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
-  const server = "http://localhost:5000/api/v1/schedule";
+  const server = process.env.NEXT_PUBLIC_API_URL;
   const { localUser, isAuthenticated, logout } = useAuth();
   const { users, fetchUsers, fetchDeleteUsers } = UseUser();
   const router = useRouter();
@@ -97,7 +97,7 @@ export const ScheduleProvider = ({ children }: ScheduleProviderProps) => {
         },
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/schedule", options); // URL de la API protegida
       if (!response.ok && response.status === 401) {
         logout();
         router.push("/login");
@@ -144,7 +144,7 @@ export const ScheduleProvider = ({ children }: ScheduleProviderProps) => {
         }),
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/schedule", options); // URL de la API protegida
 
       if (!response.ok) {
         throw new Error("Error al realizar la solicitud");
@@ -191,7 +191,7 @@ export const ScheduleProvider = ({ children }: ScheduleProviderProps) => {
         body: JSON.stringify(scheduledata),
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/schedule", options); // URL de la API protegida
 
       if (!response.ok) {
         throw new Error("Error al realizar la solicitud");
@@ -234,7 +234,7 @@ export const ScheduleProvider = ({ children }: ScheduleProviderProps) => {
         }),
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/schedule", options); // URL de la API protegida
 
       if (!response.ok) {
         throw new Error("Error al realizar la solicitud");

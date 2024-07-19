@@ -73,7 +73,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [msg, setMsg] = useState<string | null>(null);
   const [credentials, setCredentials] = useState<object | null>(null);
   const { localUser, logout } = useAuth();
-  const server = "http://localhost:5000/api/v1/users";
+  const server = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
   useEffect(() => {
@@ -109,9 +109,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       };
 
       if (localUser.role === "admin") {
-        url = `${server}`;
+        url = `${server}/users`;
       } else {
-        url = `${server}/${localUser.usuario}?page=${page}`;
+        url = `${server}/users/${localUser.usuario}?page=${page}`;
       }
       const response = await fetch(url, options); // URL de la API protegida
       if (!response.ok && response.status === 401) {
@@ -159,7 +159,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         }),
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/users", options); // URL de la API protegida
 
       if (!response.ok && response.status === 401) {
         logout();
@@ -209,7 +209,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         ),
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/users", options); // URL de la API protegida
 
       if (!response.ok && response.status === 401) {
         logout();
@@ -257,7 +257,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         }),
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/users", options); // URL de la API protegida
 
       if (!response.ok && response.status === 401) {
         logout();

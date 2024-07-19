@@ -46,7 +46,7 @@ export const NewsProvider = ({ children }: NewsProviderProps) => {
   const [newsloading, setNewsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
-  const server = "http://localhost:5000/api/v1/news";
+  const server = process.env.NEXT_PUBLIC_API_URL;
   const { localUser, isAuthenticated, logout } = useAuth();
   const { users, fetchUsers, fetchDeleteUsers } = UseUser();
   const router = useRouter();
@@ -85,9 +85,9 @@ export const NewsProvider = ({ children }: NewsProviderProps) => {
 
       if (localUser.role === "user") {
         const id = users[0]._id.$oid;
-        url = `${server}?id=${id}&page=${page}`;
+        url = `${server}/news?id=${id}&page=${page}`;
       } else {
-        url = `${server}?page=${page}`;
+        url = `${server}/news?page=${page}`;
       }
 
       const response = await fetch(url, options); // URL de la API protegida
@@ -132,7 +132,7 @@ export const NewsProvider = ({ children }: NewsProviderProps) => {
         },
       };
 
-      const baseUrl = server;
+      const baseUrl = server + "/news";
       const params = new URLSearchParams();
       if (localUser.role === "user") id = users[0]._id.$oid
       if (id) params.append("id", id);
@@ -185,7 +185,7 @@ export const NewsProvider = ({ children }: NewsProviderProps) => {
         body: JSON.stringify({ selectedNews: selectedNewsItems }),
       };
 
-      const response = await fetch(server, options); // URL de la API protegida
+      const response = await fetch(server + "/news", options); // URL de la API protegida
 
       if (!response.ok) {
         throw new Error("Error al realizar la solicitud");
@@ -195,13 +195,6 @@ export const NewsProvider = ({ children }: NewsProviderProps) => {
       setMsg(data.message);
       fetchNews()
 
-      // // Remove the deleted news from local state
-      // setNews((prevState) =>
-      //   prevState.filter(
-      //     (newsItem) =>
-      //       console.log(newsItem)
-      //   )
-      // ); // Maneja la respuesta de la API
     } catch (error) {
       setError((error as Error).message);
       console.error("Error al realizar la solicitud:", error);
