@@ -4,11 +4,11 @@ interface PaginationProps {
   itemsPerPage: number;
   totalItems: number;
   paginate: (pageNumber: number) => void;
-  PaginateNews: () => void;
+  PaginateNews: (pageNumber: number) => void;
   currentPage: number;
   currentNews: number;
-  fetchNews: (page: number) => void;
-  
+  fetchNews: (tema:string, id?:string, page?:number) => void;
+  query:string
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -19,13 +19,20 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   currentNews,
   fetchNews,
-  
+  query,
 }) => {
   const pageNumbers = [];
 
   const nextNews = () => {
-    fetchNews(currentNews);
-    PaginateNews();
+    console.log(currentNews);
+    fetchNews(query,"",currentNews + 1);
+    PaginateNews(currentNews + 1);
+    paginate(1);
+  };
+
+  const prevNews = () => {
+    fetchNews(query, "", currentNews - 1);
+    PaginateNews(currentNews - 1);
     paginate(1);
   };
 
@@ -35,7 +42,12 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <nav>
-      <ul className="flex justify-center space-x-2">
+      <ul className="flex justify-center space-x-2 w-2/3 m-4">
+        {currentNews > 1 && pageNumbers.length > 0 ? (
+          <button onClick={prevNews} className="bg-black p-2 rounded">
+            Anterior Stack
+          </button>
+        ) : null}
         {pageNumbers.map((number) => (
           <li
             key={number}
@@ -55,7 +67,7 @@ const Pagination: React.FC<PaginationProps> = ({
         ))}
         {pageNumbers.length > 0 && (
           <button onClick={nextNews} className="bg-black p-2 rounded">
-            Ver mas noticias
+            Siguiente Stack
           </button>
         )}
       </ul>

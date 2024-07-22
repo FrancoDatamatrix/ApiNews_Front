@@ -6,9 +6,13 @@ interface NewsItem {
   title: string;
   link: string;
   snippet: string;
+  timestamp: string
 }
 
 const NewsItem: React.FC<NewsItem> = (newsprop) => {
+  let [date, time] = newsprop.timestamp.split("T");
+  time = time.split(".")[0];
+
   return (
     <div className="flex ">
       <div className="font-sans">
@@ -16,8 +20,10 @@ const NewsItem: React.FC<NewsItem> = (newsprop) => {
           <h1 className="mb-2 text-lg font-bold">{newsprop.title}</h1>
 
           <p className="mt-5">{newsprop.snippet}</p>
-          {/* <div>{newsprop.link}</div> */}
         </a>
+        <div className="flex items-end justify-end mt-5">
+          {date} {time}
+        </div>
       </div>
       <div className=" w-2/3 flex items-center justify-end">
         <img

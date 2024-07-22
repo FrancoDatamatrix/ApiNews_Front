@@ -62,8 +62,8 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
                   type="text"
                   name="usuario"
                   value={userData.usuario}
-                  onChange={handleChange}
                   className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+                  disabled
                 />
               </div>
 

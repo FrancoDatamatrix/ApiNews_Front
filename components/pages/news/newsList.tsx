@@ -14,16 +14,15 @@ import DeleteModal from "@/components/common/deleteModal";
 const NewsList: React.FC = () => {
   const { users } = UseUser();
   const { localUser, isAuthenticated } = useAuth();
-  const { news, fetchNews, fetchDeleteNews, newsloading } = UseNews();
+  const { news, fetchNews, fetchDeleteNews, newsloading, query, fetchFilterNews,setQuery } = UseNews();
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentNews, setCurrentNews] = useState(2);
+  const [currentNews, setCurrentNews] = useState(1);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [itemsPerPage] = useState(10);
   const [flattenedNews, setFlattenedNews] = useState<any[]>([]);
   const [selectedNews, setSelectedNews] = useState<string[]>([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false); // Estado para "Seleccionar todos"
-
-  // console.log(flattenedNews);
+  
   useEffect(() => {
     if (isAuthenticated) {
       fetchNews();
@@ -40,6 +39,7 @@ const NewsList: React.FC = () => {
             usuarioId: group.usuario_id.$oid,
             tema: group.tema,
             palabra: group.palabra,
+            timestamp: group.timestamp.$date
           };
           return newItem;
         });
@@ -48,8 +48,9 @@ const NewsList: React.FC = () => {
     } else {
       setFlattenedNews([]);
     }
-    if (news.length > 0) {
-      setCurrentNews(2);
+    if (news.length <= 0) {
+      setCurrentNews(1);
+      setQuery("")
     }
   }, [news, localUser, users]);
 
@@ -63,9 +64,9 @@ const NewsList: React.FC = () => {
   const currentItems = flattenedNews.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const PaginateNews = () => {
-    const nextNews = currentNews + 1;
-    setCurrentNews(nextNews);
+  const PaginateNews = (pageNumber: number) => {
+    // const nextNews = currentNews + 1;
+    setCurrentNews(pageNumber);
   };
 
   const handleOpenDeleteModal = () => {
@@ -130,7 +131,11 @@ const NewsList: React.FC = () => {
 
     return (
       <>
-        <SearchNews downloadJSON={downloadJSON} setPage={paginate} />
+        <SearchNews
+          downloadJSON={downloadJSON}
+          setPage={paginate}
+          stackNews={PaginateNews}
+        />
         <div className="text-black">
           <div className="flex ">
             <div className="flex" style={{ alignItems: "center" }}>
@@ -192,12 +197,21 @@ const NewsList: React.FC = () => {
                     title={e.title}
                     link={e.link}
                     snippet={e.snippet}
+                    timestamp={e.timestamp}
                   />
                 </div>
               </div>
             ))
           ) : (
-            <div>No se han encontrado noticias</div>
+            <div className="flex flex-col items-center w-2/3">
+              <p className="text-xl font-sans">No se han encontrado noticias</p>
+              <button
+                className="m-2 px-4 py-2 border rounded text-black border-black hover:bg-black hover:text-white"
+                onClick={() => {fetchNews(), setCurrentNews(1);}}
+              >
+                Recargar
+              </button>
+            </div>
           )}
         </div>
         <Pagination
@@ -207,7 +221,8 @@ const NewsList: React.FC = () => {
           PaginateNews={PaginateNews}
           currentPage={currentPage}
           currentNews={currentNews}
-          fetchNews={fetchNews}
+          fetchNews={fetchFilterNews}
+          query={query}
         />
       </>
     );

@@ -9,15 +9,21 @@ interface SearchNewsProps {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
   setPage: (page: number) => void;
+  stackNews: (page: number) => void;
 }
 
-const SearchNews: React.FC<SearchNewsProps> = ({ downloadJSON,setPage}) => {
-  const { fetchFilterNews } = UseNews();
-  const [query, setQuery] = useState("");
+const SearchNews: React.FC<SearchNewsProps> = ({
+  downloadJSON,
+  setPage,
+  stackNews,
+}) => {
+  const { fetchFilterNews,setQuery,query } = UseNews();
+  
 
   const handleSearch = () => {
     fetchFilterNews(query);
-    setPage(1)
+    setPage(1);
+    stackNews(1)
   };
 
   return (

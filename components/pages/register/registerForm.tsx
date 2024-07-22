@@ -47,8 +47,6 @@ const RegisterForm: React.FC = () => {
   const handleEmailChange = (e:string) => {
     // Elimina caracteres no permitidos
     const sanitizedValue = e.replace(caracteresNoPermitidos, "");
-
-    console.log(sanitizedValue);
     setEmail(sanitizedValue);
   };
 

@@ -32,7 +32,39 @@ const EditScheduleModal: React.FC<EditScheduleModalProps> = ({
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+  
     setScheduleData({ ...scheduleData, [name]: value });
+  };
+
+  const handleChangeHour = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const value = e.target.value;
+
+    // Expresión regular para permitir solo dígitos y el carácter `:`
+    const sanitizedValue = value.replace(/[^0-9:]/g, "");
+
+    // Limitar el formato a HH:MM
+    if (
+      /^\d{0,2}$/.test(sanitizedValue) ||
+      /^\d{2}:\d{0,2}$/.test(sanitizedValue)
+    ) {
+      setScheduleData({ ...scheduleData, hora: sanitizedValue });
+    }
+  };
+
+  const handleLugarChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const value = e.target.value;
+
+    // Expresión regular para permitir solo letras y convertir a mayúsculas
+    const sanitizedValue = value.replace(/[^a-zA-Z]/g, "").toUpperCase();
+
+    // Limitar la longitud a 2 caracteres
+    if (sanitizedValue.length <= 2) {
+      setScheduleData({ ...scheduleData, lugar: sanitizedValue });
+    }
   };
 
   const handleSave = () => {
@@ -60,8 +92,9 @@ const EditScheduleModal: React.FC<EditScheduleModalProps> = ({
                   type="text"
                   name="hora"
                   value={scheduleData.hora}
-                  onChange={handleChange}
+                  onChange={handleChangeHour}
                   className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+                  placeholder="HH:MM"
                 />
               </div>
 
@@ -75,6 +108,7 @@ const EditScheduleModal: React.FC<EditScheduleModalProps> = ({
                   value={scheduleData.palabras}
                   onChange={handleChange}
                   className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+                  placeholder="Separar con ,"
                 />
               </div>
 
@@ -88,6 +122,7 @@ const EditScheduleModal: React.FC<EditScheduleModalProps> = ({
                   value={scheduleData.tema}
                   onChange={handleChange}
                   className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+                  placeholder="Lexico"
                 />
               </div>
 
@@ -99,8 +134,9 @@ const EditScheduleModal: React.FC<EditScheduleModalProps> = ({
                   type="text"
                   name="lugar"
                   value={scheduleData.lugar}
-                  onChange={handleChange}
+                  onChange={handleLugarChange}
                   className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+                  placeholder="Código de país"
                 />
               </div>
             </div>

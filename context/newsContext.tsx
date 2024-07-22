@@ -30,6 +30,8 @@ interface NewsContextType {
   setMsg: (msg: string | null) => void;
   setNews: (schedules: News[] | []) => void;
   msg: string | null;
+  query: string;
+  setQuery: (query: string) => void;
   fetchNews: () => Promise<void>;
   fetchDeleteNews: (selectedNews: string[]) => Promise<void>;
   fetchFilterNews: (tema: string, id?: string, page?: number) => Promise<void>;
@@ -46,6 +48,7 @@ export const NewsProvider = ({ children }: NewsProviderProps) => {
   const [newsloading, setNewsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+  const [query, setQuery] = useState<string>("");
   const server = process.env.NEXT_PUBLIC_API_URL;
   const { localUser, isAuthenticated, logout } = useAuth();
   const { users, fetchUsers, fetchDeleteUsers } = UseUser();
@@ -211,6 +214,8 @@ export const NewsProvider = ({ children }: NewsProviderProps) => {
     setNews,
     msg,
     setMsg,
+    query,
+    setQuery,
     fetchNews,
     fetchDeleteNews,
     fetchFilterNews,
