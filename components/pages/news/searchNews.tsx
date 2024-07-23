@@ -40,7 +40,7 @@ const SearchNews: React.FC<SearchNewsProps> = ({
           onClick={handleSearch}
           className="bg-black px-4 py-2 rounded-r-lg"
         >
-          <MagnifyingGlassIcon className="h-6" />
+          <MagnifyingGlassIcon className="h-6 text-white" />
         </button>
       </div>
       <div>
