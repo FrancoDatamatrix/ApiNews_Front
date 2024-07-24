@@ -10,19 +10,46 @@ interface modalProps {
 const Alert: React.FC<modalProps> = ({ onClose, credentials, msg }) => {
   const handleCopyToClipboard = () => {
     const textToCopy = `
-      Usuario para la DB: ${credentials.db_username}
-      Contraseña para la DB: ${credentials.db_password}
-      Nombre de la DB: ${credentials.db_name}
-    `;
-    navigator.clipboard
-      .writeText(textToCopy)
-      .then(() => {
-        alert("Información copiada al portapapeles.");
-      })
-      .catch((err) => {
-        console.error("Error al copiar al portapapeles: ", err);
-      });
+    Usuario para la DB: ${credentials.db_username}
+    Contraseña para la DB: ${credentials.db_password}
+    Nombre de la DB: ${credentials.db_name}
+  `;
+
+    // Crear un elemento textarea temporal
+    const textarea = document.createElement("textarea");
+    textarea.value = textToCopy;
+    document.body.appendChild(textarea);
+
+    // Seleccionar el contenido del textarea
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); // Para dispositivos móviles
+
+    // Copiar el contenido al portapapeles
+    try {
+      document.execCommand("copy");
+      alert("Información copiada al portapapeles.");
+    } catch (err) {
+      console.error("Error al copiar al portapapeles: ", err);
+    }
+
+    // Eliminar el textarea temporal
+    document.body.removeChild(textarea);
   };
+  // const handleCopyToClipboard = () => {
+  //   const textToCopy = `
+  //     Usuario para la DB: ${credentials.db_username}
+  //     Contraseña para la DB: ${credentials.db_password}
+  //     Nombre de la DB: ${credentials.db_name}
+  //   `;
+  //   navigator.clipboard
+  //     .writeText(textToCopy)
+  //     .then(() => {
+  //       alert("Información copiada al portapapeles.");
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error al copiar al portapapeles: ", err);
+  //     });
+  // };
 
   return (
     <div className="relative z-10">
