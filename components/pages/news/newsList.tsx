@@ -190,9 +190,9 @@ const NewsList: React.FC = () => {
                 <div className="p-4 m-2 bg-gray-100 rounded w-2/3 ">
                   <NewsItem
                     image={
-                      e.pagemap.cse_image
+                      e.pagemap?.cse_image
                         ? e.pagemap?.cse_image[0]?.src
-                        : e.pagemap?.imageobject
+                        : null
                     }
                     title={e.title}
                     link={e.link}
