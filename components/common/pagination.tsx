@@ -7,9 +7,11 @@ interface PaginationProps {
   PaginateNews: (pageNumber: number) => void;
   currentPage: number;
   currentNews: number;
-  fetchNews: (tema:string, id?:string, page?:number) => void;
-  query:string
+  fetchNews: (tema: string, id?: string, page?: number) => void;
+  query: string;
 }
+
+type PageType = number | string; // Define un tipo que puede ser número o cadena
 
 const Pagination: React.FC<PaginationProps> = ({
   itemsPerPage,
@@ -21,11 +23,12 @@ const Pagination: React.FC<PaginationProps> = ({
   fetchNews,
   query,
 }) => {
-  const pageNumbers = [];
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const pageNeighbours = 5; // Número de páginas a mostrar a cada lado de la página actual
+  const maxPagesToShow = pageNeighbours * 2 + 3; // Páginas totales a mostrar incluyendo actual, izquierda y derecha
 
   const nextNews = () => {
-    console.log(currentNews);
-    fetchNews(query,"",currentNews + 1);
+    fetchNews(query, "", currentNews + 1);
     PaginateNews(currentNews + 1);
     paginate(1);
   };
@@ -36,36 +39,62 @@ const Pagination: React.FC<PaginationProps> = ({
     paginate(1);
   };
 
-  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  const generatePageNumbers = (): PageType[] => {
+    if (totalPages <= maxPagesToShow) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    const leftBound = Math.max(2, currentPage - pageNeighbours);
+    const rightBound = Math.min(totalPages - 1, currentPage + pageNeighbours);
+    const pages: PageType[] = [1];
+
+    if (leftBound > 2) {
+      pages.push("...");
+    }
+
+    for (let i = leftBound; i <= rightBound; i++) {
+      pages.push(i);
+    }
+
+    if (rightBound < totalPages - 1) {
+      pages.push("...");
+    }
+
+    pages.push(totalPages);
+    return pages;
+  };
+
+  const pageNumbersToDisplay = generatePageNumbers();
 
   return (
     <nav>
-      <ul className="flex justify-center space-x-2 w-2/3 m-4">
-        {currentNews > 1 && pageNumbers.length > 0 ? (
+      <ul className="flex justify-center items-center space-x-1 w-2/3 m-4">
+        {currentNews > 1 && (
           <button onClick={prevNews} className="bg-black p-2 rounded">
             Anterior Stack
           </button>
-        ) : null}
-        {pageNumbers.map((number) => (
+        )}
+        {pageNumbersToDisplay.map((number, index) => (
           <li
-            key={number}
+            key={index}
             className={`page-item ${
               number === currentPage
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 text-black"
             }`}
           >
-            <button
-              onClick={() => paginate(number)}
-              className="py-2 px-4 rounded"
-            >
-              {number}
-            </button>
+            {typeof number === "number" ? (
+              <button onClick={() => paginate(number)} className="w-10 py-2">
+                {number}
+              </button>
+            ) : (
+              <div className="w-10 flex flex-col items-center">
+                <span className="py-2">...</span>
+              </div>
+            )}
           </li>
         ))}
-        {pageNumbers.length > 0 && (
+        {pageNumbersToDisplay.length > 0 && currentNews < totalPages && (
           <button onClick={nextNews} className="bg-black p-2 rounded">
             Siguiente Stack
           </button>
